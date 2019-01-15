@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {XYPlot, XAxis, YAxis, LineSeries, VerticalGridLines, HorizontalGridLines, Hint} from 'react-vis';
-
+import {connect} from 'react-redux'
 
 export default class AssetChart extends Component{
 
@@ -24,4 +24,7 @@ export default class AssetChart extends Component{
       </XYPlot>
     )
   }
+
+
+  
 }

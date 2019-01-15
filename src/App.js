@@ -1,14 +1,27 @@
 import React, { Component, Fragment } from 'react';
 import AssetContainer from './components/AssetContainer'
+import Dashboard from './components/Dashboard'
+import NotFound from './components/NotFound'
+import Login from './components/Login'
+import ButtonAppBar from './components/ButtonAppBar'
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import AppBar from 'material-ui/AppBar'
+
+
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
+
 
 
 
 const API = "http://localhost:3000/api/v1/stocks/chart/nflx"
 
+
+
 class App extends Component {
-  state = { stock: [] }
+  state = {
+    stock: [],
+    news: []
+   }
 
   componentDidMount(){
     fetch(API)
@@ -16,6 +29,7 @@ class App extends Component {
       .then(data => {
         this.setState({stock: data})
       })
+
   }
 
 handleChart = (array) => {
@@ -23,18 +37,26 @@ handleChart = (array) => {
   return newArray
 }
 
+
+
   render() {
-    console.log(this.state.stock);
     return (
       <Fragment>
       <MuiThemeProvider>
-      <AppBar />
-        <h1>Hello yall</h1>
-        <AssetContainer stock={this.state.stock}/>
+      <ButtonAppBar />
+      <Switch>
+        <Route exact path="/" render={() => <Redirect to="/login" />} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/profile" render={(routeProps) => (
+          <AssetContainer {...routeProps} {...this.state} />
+        )} />
+        <Route exact path="/dashboard" component={Dashboard} />
+        <Route component={NotFound} />
+        </Switch>
       </MuiThemeProvider>
       </Fragment>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
