@@ -1,3 +1,5 @@
+import { fetchUserPortfolio } from './portfolio'
+
 export const loginUser = (name, password) => {
   return (dispatch) => { //thunk
     console.log(`${process.env.REACT_APP_API_ENDPOINT}/api/v1/login`);
@@ -27,9 +29,10 @@ export const loginUser = (name, password) => {
       })
 
       .then(JSONResponse => {
-        console.log('%c INSIDE YE OLDE .THEN', 'color: navy')
+        console.log(JSONResponse)
         localStorage.setItem('jwt', JSONResponse.jwt)
         dispatch({ type: 'SET_CURRENT_USER', payload: JSONResponse.user })
+        dispatch(fetchUserPortfolio(JSONResponse.user.id))
       })
       .catch(r => r.json().then(e => dispatch({ type: 'FAILED_LOGIN', payload: e.message })))
   }
