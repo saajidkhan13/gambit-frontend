@@ -11,7 +11,6 @@ export const fetchUserPortfolio = (id) => {
       .then((JSONResponse) => {
         console.log(JSONResponse)
         dispatch(fetchingPortfolio(JSONResponse.portfolios))
-
       })
   }
 }

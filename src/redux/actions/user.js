@@ -1,4 +1,5 @@
 import { fetchUserPortfolio } from './portfolio'
+import { fetchDashboardNews } from './dashboardNews'
 
 export const loginUser = (name, password) => {
   return (dispatch) => { //thunk
@@ -33,6 +34,8 @@ export const loginUser = (name, password) => {
         localStorage.setItem('jwt', JSONResponse.jwt)
         dispatch({ type: 'SET_CURRENT_USER', payload: JSONResponse.user })
         dispatch(fetchUserPortfolio(JSONResponse.user.id))
+        dispatch(fetchDashboardNews(JSONResponse))
+
       })
       .catch(r => r.json().then(e => dispatch({ type: 'FAILED_LOGIN', payload: e.message })))
   }

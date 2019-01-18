@@ -1,4 +1,6 @@
-import React from 'react'
+import React, {Component} from 'react'
+import { Link } from 'react-router-dom'
+
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -11,6 +13,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import SearchIcon from '@material-ui/icons/Search';
+import Switch from '@material-ui/core/Switch';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+
+
 
 
 import * as Colors from 'material-ui/styles/colors';
@@ -75,15 +83,67 @@ const styles = theme => ({
   },
 });
 
-function ButtonAppBar(props) {
-  const { classes } = props;
+class ButtonAppBar extends Component {
+  state = {
+    auth: true,
+    anchorEl: null,
+  };
+
+  handleChange = event => {
+    this.setState({ auth: event.target.checked });
+  };
+
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+
+  render(){
+    const { classes } = this.props;
+    const { auth, anchorEl } = this.state;
+    const open = Boolean(anchorEl);
+
   return (
     <div className={classes.root}>
       <AppBar color="primary" position="static">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
+        {auth && (
+          <div>
+            <IconButton
+              aria-owns={open ? 'menu-appbar' : undefined}
+              aria-haspopup="true"
+              onClick={this.handleMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={open}
+              onClose={this.handleClose}
+            >
+              <MenuItem onClick={this.handleClose}>
+                <Link to = "/portfolio">Portfolio</Link>
+              </MenuItem>
+              <MenuItem onClick={this.handleClose}>
+                <Link to = "/dashboard">Dashboard</Link>
+              </MenuItem>
+            </Menu>
+          </div>
+        )}
           <Typography variant="h6" color="inherit" className={classes.grow}>
             Gambit
           </Typography>
@@ -99,11 +159,12 @@ function ButtonAppBar(props) {
                 input: classes.inputInput,
               }}
             />
-          </div>
+            </div>
         </Toolbar>
       </AppBar>
     </div>
   );
+}
 }
 
 ButtonAppBar.propTypes = {

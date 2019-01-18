@@ -18,7 +18,6 @@ export default class GainersAndLosers extends Component {
   render(){
     const gainers = this.props.data.gainers
     const losers = this.props.data.losers
-    console.log(gainers);
     return(
         <Fragment>
           <h1>GAINZ</h1>

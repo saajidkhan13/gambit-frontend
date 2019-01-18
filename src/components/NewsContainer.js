@@ -1,17 +1,30 @@
 import React, {Component, Fragment} from 'react';
 import NewsCard from './NewsCard'
 
-export default class NewsContainer extends Component {
+import {connect} from 'react-redux'
+import { fetchDashboardNews } from '../redux/actions/dashboardNews'
+
+
+
+class NewsContainer extends Component {
 
 
   render(){
-    const newsData = this.props.news
+    const newsData = this.props.dashboardNewsReducer.news
+    console.log(newsData);
     return(
       <Fragment>
-        {newsData.map(array => {
-          return <NewsCard key={array.datetime} news={array} />
+        {newsData.map(obj => {
+          return <NewsCard key={obj.datetime} news={obj} />
         })}
       </Fragment>
     )
   }
 }
+
+const mapStateToProps = ({ dashboardNewsReducer }) => ({
+  dashboardNewsReducer
+})
+
+
+export default connect(mapStateToProps, { fetchDashboardNews })(NewsContainer)

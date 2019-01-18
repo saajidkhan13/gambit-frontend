@@ -20,6 +20,7 @@ import { withRouter, Redirect } from 'react-router'
 import { loginUser } from '../redux/actions/user'
 
 
+
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -154,6 +155,7 @@ const mapStateToProps = ({ usersReducer: { authenticatingUser, failedLogin, erro
   error,
   loggedIn
 })
+
 
 Login.propTypes = {
   classes: PropTypes.object.isRequired,

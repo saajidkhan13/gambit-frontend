@@ -3,26 +3,45 @@ import NewsContainer from './NewsContainer'
 import GainersAndLosers from './GainersAndLosers'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchUserPortfolio } from '../redux/actions/portfolio'
 
 
-class Dashboard extends Component {
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+});
+
+
+export default class Dashboard extends Component {
 
 
   render(){
+    const { classes } = this.props;
+
     return (
       <Fragment>
         <Link to ="/profile">Practice</Link>
-        <GainersAndLosers data={this.props.gainersAndLosers}/>
-        <NewsContainer news={this.props.news}/>
-
+        <Link to = "/portfolio">Portfolio</Link>
+        <div className={styles.root}>
+        <Grid container spacing={24}>
+          <Grid item xs>
+            </Grid>
+            <Grid item xs>
+            <NewsContainer />
+            </Grid>
+          </Grid>
+        </div>
       </Fragment>
     )
   }
 }
-
-const mapStateToProps = ({ portfoliosReducer: { fetchingPortfolio } }) => ({
-  fetchingPortfolio
-})
-
-export default withRouter(connect(mapStateToProps, { fetchUserPortfolio })(Dashboard))

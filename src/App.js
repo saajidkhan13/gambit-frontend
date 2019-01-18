@@ -3,6 +3,7 @@ import AssetContainer from './components/AssetContainer'
 import Dashboard from './components/Dashboard'
 import NotFound from './components/NotFound'
 import Login from './components/Login'
+import PortfolioContainer from './components/PortfolioContainer'
 import ButtonAppBar from './components/ButtonAppBar'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -21,7 +22,6 @@ const API = "http://localhost:3000/api/v1/stocks/chart/nflx"
 class App extends Component {
   state = {
     stock: [],
-    news: [],
     gainersAndLosers: []
    }
 
@@ -38,30 +38,19 @@ class App extends Component {
       .then(data => {
         this.setState({stock: data})
       })
-      fetch("http://localhost:3000/api/v1/stocks/gainers-losers", { //TODO: move this to an adapter
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          "Accept": 'application/json',
-          "Authorization": `Bearer ${localStorage.getItem('jwt')}`
-        }
+
+    fetch("http://localhost:3000/api/v1/stocks/gainers-losers", { //TODO: move this to an adapter
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        "Accept": 'application/json',
+        "Authorization": `Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
+      .then(r => r.json())
+      .then(data => {
+        this.setState({gainersAndLosers: data})
       })
-        .then(r => r.json())
-        .then(data => {
-          this.setState({gainersAndLosers: data})
-        })
-        fetch("http://localhost:3000/api/v1/stocks/aapl/news", { //TODO: move this to an adapter
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            "Accept": 'application/json',
-            "Authorization": `Bearer ${localStorage.getItem('jwt')}`
-          }
-        })
-          .then(r => r.json())
-          .then(data => {
-            this.setState({news: data})
-          })
   }
 
 
@@ -74,24 +63,24 @@ handleChart = (array) => {
 
 
   render() {
-    console.log(this.state);
     return (
       <Fragment>
-      <MuiThemeProvider >
-      <ButtonAppBar />
-      <Switch>
-        <Route exact path="/" render={() => <Redirect to="/login" />} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/profile" render={(routeProps) => (
-          <AssetContainer {...routeProps} {...this.state} />
-        )} />
-        <Route exact path="/dashboard" render={(routeProps) => (
-          <Dashboard {...routeProps} {...this.state} />
-        )} />
+        <MuiThemeProvider >
+          <ButtonAppBar />
+            <Switch>
+              <Route exact path="/" render={() => <Redirect to="/login" />} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/profile" render={(routeProps) => (
+                <AssetContainer {...routeProps} {...this.state} />
+              )} />
+              <Route exact path="/dashboard" component={Dashboard} />
+              )} />
+              <Route exact path="/portfolio" component={PortfolioContainer}/>
+              )} />
 
-        <Route component={NotFound} />
-        </Switch>
-      </MuiThemeProvider>
+              <Route component={NotFound} />
+          </Switch>
+        </MuiThemeProvider>
       </Fragment>
     );
   }
