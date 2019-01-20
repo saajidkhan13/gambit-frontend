@@ -4,79 +4,69 @@ import Dashboard from './components/Dashboard'
 import NotFound from './components/NotFound'
 import Login from './components/Login'
 import PortfolioContainer from './components/PortfolioContainer'
+import StockIndexContainer from './components/StockIndexContainer'
 import ButtonAppBar from './components/ButtonAppBar'
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import orange from '@material-ui/core/colors/orange';
+import blue from '@material-ui/core/colors/blue';
+import blueGrey from '@material-ui/core/colors/blueGrey';
 
 
 
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: blueGrey[500] }, // Purple and green play nicely together.
+    secondary: { main: blue[500] },
+    type: 'dark',// This is just green.A700 as hex.
+  },
+  typography: { useNextVariants: true },
+
+});
 
 
-
-const API = "http://localhost:3000/api/v1/stocks/chart/nflx"
 
 
 
 class App extends Component {
   state = {
-    stock: [],
-    gainersAndLosers: []
+    stockToDisplay: ""
    }
 
-  componentDidMount(){
-    fetch(API, { //TODO: move this to an adapter
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        "Accept": 'application/json',
-        "Authorization": `Bearer ${localStorage.getItem('jwt')}`
-      }
-    })
-      .then(r => r.json())
-      .then(data => {
-        this.setState({stock: data})
-      })
 
-    fetch("http://localhost:3000/api/v1/stocks/gainers-losers", { //TODO: move this to an adapter
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        "Accept": 'application/json',
-        "Authorization": `Bearer ${localStorage.getItem('jwt')}`
-      }
-    })
-      .then(r => r.json())
-      .then(data => {
-        this.setState({gainersAndLosers: data})
-      })
+
+
+
+  handleTicker = (event) => {
+    this.setState({stockToDisplay: event.target.innerText})
   }
 
 
 
-handleChart = (array) => {
-  const newArray = array.map(x => x.open > 2)
-  return newArray
-}
-
-
-
   render() {
+    console.log(this.state.chartToDisplay);
     return (
       <Fragment>
-        <MuiThemeProvider >
+        <MuiThemeProvider theme={theme} >
           <ButtonAppBar />
             <Switch>
               <Route exact path="/" render={() => <Redirect to="/login" />} />
               <Route exact path="/login" component={Login} />
-              <Route exact path="/profile" render={(routeProps) => (
+              <Route exact path="/stock" render={(routeProps) => (
                 <AssetContainer {...routeProps} {...this.state} />
               )} />
               <Route exact path="/dashboard" component={Dashboard} />
               )} />
               <Route exact path="/portfolio" component={PortfolioContainer}/>
               )} />
+              <Route exact path="/stocks" render={(routeProps) => (
+                <StockIndexContainer {...routeProps} {...this.state} handleTicker={this.handleTicker} />
+              )} />
+
+
 
               <Route component={NotFound} />
           </Switch>

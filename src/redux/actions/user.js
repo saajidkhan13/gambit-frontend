@@ -1,5 +1,7 @@
 import { fetchUserPortfolio } from './portfolio'
 import { fetchDashboardNews } from './dashboardNews'
+import { fetchGainersAndLosers } from './dashboardNews'
+import { fetchStocks } from './stock'
 
 export const loginUser = (name, password) => {
   return (dispatch) => { //thunk
@@ -35,7 +37,8 @@ export const loginUser = (name, password) => {
         dispatch({ type: 'SET_CURRENT_USER', payload: JSONResponse.user })
         dispatch(fetchUserPortfolio(JSONResponse.user.id))
         dispatch(fetchDashboardNews(JSONResponse))
-
+        dispatch(fetchGainersAndLosers(JSONResponse))
+        dispatch(fetchStocks(JSONResponse))
       })
       .catch(r => r.json().then(e => dispatch({ type: 'FAILED_LOGIN', payload: e.message })))
   }

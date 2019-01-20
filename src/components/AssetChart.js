@@ -6,7 +6,7 @@ export default class AssetChart extends Component{
 
   showStockData = () => {
     const stockData = []
-    this.props.stock.forEach((obj, index) => {
+    this.props.stock.forEach((obj) => {
       stockData.push({x: obj.label, y: obj.close})
     })
     return stockData
@@ -26,5 +26,5 @@ export default class AssetChart extends Component{
   }
 
 
-  
+
 }

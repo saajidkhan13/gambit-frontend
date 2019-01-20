@@ -91,7 +91,7 @@ class Login extends Component{
     const { classes } = this.props;
 
     return( this.props.loggedIn ? (
-      <Redirect to="/dashboard" /> ) : (
+      <Redirect to="/stocks" /> ) : (
         <Fragment>
           <main className={classes.main}>
           <CssBaseline />

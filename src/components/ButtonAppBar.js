@@ -141,6 +141,9 @@ class ButtonAppBar extends Component {
               <MenuItem onClick={this.handleClose}>
                 <Link to = "/dashboard">Dashboard</Link>
               </MenuItem>
+              <MenuItem onClick={this.handleClose}>
+                <Link to = "/stocks">Stocks</Link>
+              </MenuItem>
             </Menu>
           </div>
         )}
