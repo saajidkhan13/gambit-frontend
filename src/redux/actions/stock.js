@@ -9,7 +9,6 @@ export const fetchStocks = (id) => {
     })
       .then(response => response.json())
       .then((JSONResponse) => {
-        console.log(JSONResponse)
         dispatch(fetchingStocks(JSONResponse))
       })
   }

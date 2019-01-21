@@ -3,40 +3,37 @@ import { connect } from 'react-redux'
 
 import GainerCard from './GainerCard'
 import LoserCard from './LoserCard'
-
-
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: 'left',
-    color: theme.palette.text.secondary,
-  },
-});
 
-class GainersAndLosers extends Component {
+
+
+
+
+export default class GainersAndLosers extends Component {
 
 
 
 
   render(){
-    const { classes } = this.props;
+
+
+
 
 
     return(
         <Fragment>
 
+            <Typography variant="overline" >
+            Gainers
+            </Typography>
+            <GainerCard handleTicker={this.props.handleTicker}/>
 
-            <GainerCard />
+            <Typography variant="overline" >
+            Losers
+            </Typography>
             <LoserCard />
 
 
@@ -45,11 +42,3 @@ class GainersAndLosers extends Component {
     )
   }
 }
-
-const mapStateToProps = ({dashboardNewsReducer}) => ({
-  dashboardNewsReducer
-})
-
-const hoc= withStyles(styles)(GainersAndLosers);
-
-export default connect(mapStateToProps)(hoc)

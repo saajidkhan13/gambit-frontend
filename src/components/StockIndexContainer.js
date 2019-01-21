@@ -1,17 +1,27 @@
 import React, { Component, Fragment } from 'react'
+
 import {connect} from 'react-redux'
+
 import TickerTable from './TickerTable'
 
+import Typography from '@material-ui/core/Typography';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+
+
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+};
 
 class StockIndexContainer extends Component {
   state = {
     term: ""
   }
 
-
-
   handleChange = (event) => {
-    console.log('i am being hit');
     this.setState({term: event.target.value})
   }
 
@@ -25,40 +35,47 @@ class StockIndexContainer extends Component {
 
 
   render(){
-    console.log(this.props);
-    const stocks = this.props.stocksReducer.stocks
+    const stocks = this.props.stocksReducer.stocks;
+    const { classes } = this.props;
     return (
       <Fragment>
-      <h1>hello</h1>
+      <Typography component="h2" variant="h1" gutterBottom>
+        Search Stocks
+      </Typography>
+
+      {stocks ?
         <div>
           <input type="text"
             placeholder="Search Stocks"
             onChange={this.handleChange}
           />
-        <table>
-          <tbody>
-            <tr>
-              <th>
-                <h3>Symbol</h3>
-              </th>
-              <th>
-                <h3>Name</h3>
-              </th>
-            </tr>
+            <div>
             {this.filteredStocks().map(ticker => {
               return <TickerTable handleTicker={this.props.handleTicker} key={ticker.symbol} ticker={ticker} />
             })}
-          </tbody>
-        </table>
-        </div>
+            </div>
+       </div>  :
+       <div className={classes.root}>
+        <LinearProgress variant="query" />
+        <br />
+        <LinearProgress color="secondary" variant="query" />
+      </div>
+      }
       </Fragment>
     )
   }
 }
 
+StockIndexContainer.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = ({stocksReducer}) => ({
   stocksReducer
 })
 
-export default connect(mapStateToProps)(StockIndexContainer)
+const hoc = withStyles(styles)(StockIndexContainer);
+
+
+
+export default connect(mapStateToProps)(hoc)

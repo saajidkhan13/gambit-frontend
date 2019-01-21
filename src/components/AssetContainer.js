@@ -1,39 +1,23 @@
-import React, {Component, Fragment} from 'react'
-import AssetInfo from './AssetInfo'
-import AssetChart from './AssetChart'
+import React, {Component, Fragment} from 'react';
+import AssetInfo from './AssetInfo';
+import AssetChart from './AssetChart';
 
-
+import Typography from '@material-ui/core/Typography';
 
 
 export default class AssetContainer extends Component{
-  state={
-    chartToDisplay: []
-  }
-
-  componentDidMount(){
-    const ticker = this.props.stockToDisplay
-
-    const API = `http://localhost:3000/api/v1/stocks/chart/${ticker}`
-    fetch(API, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        "Accept": 'application/json',
-        "Authorization": `Bearer ${localStorage.getItem('jwt')}`
-      }
-    })
-    .then(r => r.json())
-    .then(data => {
-      this.setState({chartToDisplay: data});
-    })
-  }
 
   render(){
-    console.log(this.props);
+    const chart = this.props.chartToDisplay
+    const info = this.props.companyInfo
+
     return (
       <Fragment>
-      <h1>hello</h1>
-      {this.state.chartToDisplay ? <AssetContainer stock={this.state.chartToDisplay} /> : <h1>no</h1>}
+      <Typography variant="h2" gutterBottom>
+        {info ? info.companyName : "Loading"}
+      </Typography>
+      {chart ? <AssetChart chart={chart} handleTimeLine={this.props.handleTimeLine} /> : <h1>no</h1>}
+      {info ? <AssetInfo info={info} /> : <h1>no</h1>}
       </Fragment>
     )
   }
