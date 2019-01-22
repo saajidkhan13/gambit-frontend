@@ -1,5 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import { connect } from 'react-redux'
+import { Link, withRouter } from 'react-router-dom'
+
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -21,6 +23,7 @@ import Paper from '@material-ui/core/Paper';
 
 
 
+
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -28,6 +31,10 @@ const styles = theme => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
+    height: 180
+  },
+  container: {
+    display: 'flex',
   },
   gridList: {
     flexWrap: 'nowrap',
@@ -48,12 +55,17 @@ const styles = theme => ({
     height: 140,
     width: 100,
   },
-  control: {
-    padding: theme.spacing.unit * 2,
+  
+  svg: {
+    width: 100,
+    height: 100,
+  },
+  polygon: {
+    fill: theme.palette.common.white,
+    stroke: theme.palette.divider,
+    strokeWidth: 1,
   }
 });
-
-
 
 class GainerCard extends Component {
 
@@ -71,7 +83,7 @@ class GainerCard extends Component {
                     >
                     <Paper className={classes.paper}>
                       <Typography className={classes.title} onClick={this.props.handleTicker} color="textSecondary" gutterBottom>
-                        {gainer.symbol}
+                        <Link to ="/stock" >{gainer.symbol}</Link>
                       </Typography>
                       <Typography className={classes.change} variant="h5" component="h2" >
                         {gainer.change}
@@ -85,6 +97,7 @@ class GainerCard extends Component {
 
                       </Paper>
                   </GridListTile>
+
                 }) : <h1>nothing</h1>
               }
               </GridList>

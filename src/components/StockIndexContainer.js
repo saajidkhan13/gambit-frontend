@@ -3,18 +3,34 @@ import React, { Component, Fragment } from 'react'
 import {connect} from 'react-redux'
 
 import TickerTable from './TickerTable'
+import Loader from '../hocs/Loader'
 
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1,
   },
-};
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+});
 
 class StockIndexContainer extends Component {
   state = {
@@ -45,21 +61,25 @@ class StockIndexContainer extends Component {
 
       {stocks ?
         <div>
-          <input type="text"
-            placeholder="Search Stocks"
+          <TextField
+            id="filled-full-width"
             onChange={this.handleChange}
+            style={{ margin: 8 }}
+            placeholder="Search Stocks"
+            fullWidth
+            margin="normal"
+            variant="filled"
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
-            <div>
+        <div>
             {this.filteredStocks().map(ticker => {
               return <TickerTable handleTicker={this.props.handleTicker} key={ticker.symbol} ticker={ticker} />
             })}
-            </div>
+          </div>
        </div>  :
-       <div className={classes.root}>
-        <LinearProgress variant="query" />
-        <br />
-        <LinearProgress color="secondary" variant="query" />
-      </div>
+       <Loader/>
       }
       </Fragment>
     )

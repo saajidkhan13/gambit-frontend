@@ -8,40 +8,42 @@ import Button from '@material-ui/core/Button';
 
 
 
+export default class AssetStats extends Component {
 
-export default class AssetInfo extends Component{
+
 
   render(){
+    const stats = this.props.stats
 
-    const info = this.props.info
-    const price = this.props.price.price
-    return (
+    return(
       <Fragment>
-      <Paper>
-        <Card>
-          <CardContent>
-            <Typography component="h1" variant="overline" gutterBottom>
-              Price: {price}
+        <Paper>
+          <Card>
+            <CardContent>
+            <Typography variant="overline" gutterBottom>
+              Market Cap: {stats.marketcap}
             </Typography>
             <Typography variant="overline" gutterBottom>
-              Symbol: {info.symbol}
+              Float: {stats.float}
             </Typography>
             <Typography variant="overline" gutterBottom>
-              CEO: {info.CEO}
+              Float: {stats.float}
             </Typography>
             <Typography variant="overline" gutterBottom>
-              Sector: {info.sector}
+              Shares Outstanding: {stats.sharesOutstanding}
             </Typography>
             <Typography variant="overline" gutterBottom>
-              Industry: {info.industry}
+              52 Week-High: {stats.week52high}
             </Typography>
             <Typography variant="overline" gutterBottom>
-              {info.description}
+              52 Week-Low: {stats.week52low}
             </Typography>
-            <Button variant="contained" onClick={this.props.handlePurchase}>Buy: ${price}</Button>
-          </CardContent>
-        </Card>
-      </Paper>
+            <Typography variant="overline" gutterBottom>
+              52 Week-Change: {stats.week52change}
+            </Typography>
+            </CardContent>
+          </Card>
+        </Paper>
       </Fragment>
     )
   }

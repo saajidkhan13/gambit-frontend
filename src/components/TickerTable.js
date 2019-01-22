@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import { Link, withRouter } from 'react-router-dom'
+
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
@@ -13,7 +14,7 @@ class TickerTable extends Component {
             <Typography onClick={this.props.handleTicker}>
             <Link to ="/stock" >{ticker.symbol}</Link>
             </Typography>
-            <Typography>
+            <Typography variant="overline">
             {ticker.title}
             </Typography>
           </Paper>

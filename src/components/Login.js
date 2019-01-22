@@ -22,49 +22,35 @@ import { loginUser } from '../redux/actions/user'
 
 
 const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  input: {
-    margin: theme.spacing.unit,
-  },
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-
   main: {
-  width: 'auto',
-  display: 'block', // Fix IE 11 issue.
-  marginLeft: theme.spacing.unit * 3,
-  marginRight: theme.spacing.unit * 3,
-  [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-    width: 400,
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    width: 'auto',
+    display: 'block', // Fix IE 11 issue.
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
   },
-},
-paper: {
-  marginTop: theme.spacing.unit * 8,
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-},
-avatar: {
-  margin: theme.spacing.unit,
-  backgroundColor: theme.palette.secondary.main,
-},
-form: {
-  width: '100%', // Fix IE 11 issue.
-  marginTop: theme.spacing.unit,
-},
-submit: {
-  marginTop: theme.spacing.unit * 3,
-},
+  paper: {
+    marginTop: theme.spacing.unit * 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing.unit,
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3,
+  },
 });
 
 
@@ -96,10 +82,12 @@ class Login extends Component{
           <main className={classes.main}>
           <CssBaseline />
             <Paper>
+            <center>
+            <br/><br/>
               <Avatar className={classes.avatar} >
                 <LockOutlinedIcon />
               </Avatar>
-              <Typography component="h1" variant="h5">
+              <Typography component="h1" variant="overline">
                         Sign in
               </Typography>
               <div className="login form"
@@ -111,20 +99,17 @@ class Login extends Component{
               <h1 error header={this.props.failedLogin ? this.props.error : null}></h1>
       <form className={classes.form}>
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="name">name</InputLabel>
+
             <Input id="name" autoComplete="email" autoFocus
-            label="name"
-            placeholder="name"
+            placeholder="Username"
             name="name"
             onChange={this.handleChange}
-            value={this.state.email}/>
+            value={this.state.name}/>
           </FormControl>
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
             <Input name="password" type="password" id="password"
             type="password"
-            label="password"
-            placeholder="password"
+            placeholder="Password"
             name="password"
             onChange={this.handleChange}
             value={this.state.password} />
@@ -141,6 +126,7 @@ class Login extends Component{
            </Button>
       </form>
     </div>
+    </center>
     </Paper>
     </main>
     </Fragment> )

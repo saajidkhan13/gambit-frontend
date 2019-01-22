@@ -37,6 +37,8 @@ class App extends Component {
     companyInfo: {},
     timeline: "",
     chartToDisplay: [],
+    price: {},
+    keyStats: {}
    }
 
 
@@ -67,6 +69,27 @@ class App extends Component {
         this.setState({companyInfo: data})
       })
 
+    fetch(`http://localhost:3000/api/v1/stocks/price/${event.target.innerText}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
+      .then(r => r.json())
+      .then(data => {
+        this.setState({price: data})
+      })
+
+      fetch(`http://localhost:3000/api/v1/stocks/${event.target.innerText}/stats`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwt')}`
+        }
+      })
+        .then(r => r.json())
+        .then(data => {
+          this.setState({keyStats: data})
+        })
 
   }
   handleTimeLine = (event) => {
@@ -84,10 +107,35 @@ class App extends Component {
 
   }
 
+  handlePurchase = (id) => {
+    console.log('I have been clicked');
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v1/users/${id}`, {
+            method: 'POST',
+            headers:
+            {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: `Bearer ${localStorage.getItem('jwt')}`
+            },
+            body: JSON.stringify(
+               {
+                 user_id: 1,
+                 name: this.state.companyInfo.companyName,
+                 symbol: this.state.stockToDisplay,
+                 price_when_purchased: this.state.price.price,
+                 amount: 1000,
+                 sector: this.state.companyInfo.sector ,
+                 date_bought: new Date().getDate()
+              }
+            )
+          })
+  }
+
 
 
 
   render() {
+    console.log(this.state);
     return (
       <Fragment>
         <MuiThemeProvider theme={theme} >
@@ -98,6 +146,7 @@ class App extends Component {
               <Route exact path="/stock" render={(routeProps) => (
                 <AssetContainer {...routeProps} {...this.state}
                   handleTimeLine={this.handleTimeLine}
+                  handlePurchase={this.handlePurchase}
                 />
               )} />
               <Route exact path="/dashboard" render={(routeProps) => (

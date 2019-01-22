@@ -17,6 +17,10 @@ import Switch from '@material-ui/core/Switch';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Drawer from '@material-ui/core/Drawer';
+import ListItem from '@material-ui/core/ListItem';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
 
 
 
@@ -83,6 +87,8 @@ const styles = theme => ({
   },
 });
 
+
+
 class ButtonAppBar extends Component {
   state = {
     auth: true,
@@ -121,7 +127,7 @@ class ButtonAppBar extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <Menu
+            <Drawer
               id="menu-appbar"
               anchorEl={anchorEl}
               anchorOrigin={{
@@ -135,34 +141,31 @@ class ButtonAppBar extends Component {
               open={open}
               onClose={this.handleClose}
             >
-              <MenuItem onClick={this.handleClose}>
+              <ListItem onClick={this.handleClose}>
+              <Typography variant="overline">
                 <Link to = "/portfolio">Portfolio</Link>
-              </MenuItem>
-              <MenuItem onClick={this.handleClose}>
+              </Typography>
+              </ListItem>
+
+              <ListItem onClick={this.handleClose}>
+              <Typography variant="overline">
                 <Link to = "/dashboard">Dashboard</Link>
-              </MenuItem>
-              <MenuItem onClick={this.handleClose}>
+              </Typography>
+              </ListItem>
+
+
+              <ListItem onClick={this.handleClose}>
+              <Typography variant="overline">
                 <Link to = "/stocks">Stocks</Link>
-              </MenuItem>
-            </Menu>
+              </Typography>
+              </ListItem>
+            </Drawer>
           </div>
         )}
-          <Typography variant="h6" color="inherit" className={classes.grow}>
+          <Typography variant="h6" color="inherit" variant="overline" className={classes.grow}>
             Gambit
           </Typography>
-            <div className={classes.grow} />
-            <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-            />
-            </div>
+            
         </Toolbar>
       </AppBar>
     </div>

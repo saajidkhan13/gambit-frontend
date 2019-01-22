@@ -1,5 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import { connect } from 'react-redux'
+import { Link, withRouter } from 'react-router-dom'
+
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -66,14 +68,14 @@ class LoserCard extends Component{
 
     return (
       <div className={classes.root}>
-            <GridList className={classes.gridList} cols={4.5} >
+            <GridList className={classes.gridList} cols={7.5} >
           { losers ? losers.map((loser) => {
             return <GridListTile className={classes.card}
               key={loser.symbol}
               >
               <Paper className={classes.paper}>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                  {loser.symbol}
+                <Typography className={classes.title} color="textSecondary" onClick={this.props.handleTicker} gutterBottom>
+                  <Link to ="/stock" >{loser.symbol}</Link>
                 </Typography>
                 <Typography className={classes.change} variant="h5" component="h2" >
                   {loser.change}
@@ -84,7 +86,7 @@ class LoserCard extends Component{
                 <Typography component="p">
                   {loser.name}
                 </Typography>
-                
+
                 </Paper>
             </GridListTile>
           }) : <h1>nothing</h1>

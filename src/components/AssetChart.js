@@ -1,24 +1,29 @@
 import React, { Component, Fragment } from 'react';
 
 import {
-  XYPlot,
+  FlexibleXYPlot,
   XAxis,
   YAxis,
-  LineSeries,
+  LineMarkSeries,
   VerticalGridLines,
   HorizontalGridLines,
-  Hint,
-  LineMarkSeries
+  Hint
   } from 'react-vis';
 
 import {connect} from 'react-redux';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
 
 const styles = theme => ({
+  root: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+  },
   button: {
     margin: theme.spacing.unit,
   },
@@ -28,8 +33,24 @@ const styles = theme => ({
 });
 
 
-
 class AssetChart extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: null
+    };
+  }
+
+  _forgetValue = () => {
+    this.setState({
+      value: null
+    });
+  };
+
+  _rememberValue = value => {
+    this.setState({value});
+  };
+
 
   showStockData = () => {
     if(this.props.chart){
@@ -48,24 +69,32 @@ class AssetChart extends Component{
 
   render(){
     const { classes } = this.props;
+    const {value} = this.state;
 
     return (
       <Fragment>
-        <XYPlot width={1000} height={850} xType="ordinal" >
-          <XAxis />
+        <Paper className={classes.root} >
+        <FlexibleXYPlot xType="ordinal" margin={50} width={700} height={500} >
+          <XAxis/>
           <YAxis />
-          <LineSeries data={this.showStockData()} />
           <LineMarkSeries
             className="linemark-series-example"
             style={{
               strokeWidth: '1px'
             }}
-            lineStyle={{stroke: 'black'}}
-            markStyle={{stroke: 'blue'}}
+            size= "1"
+            onValueMouseOver={this._rememberValue}
+            onValueMouseOut={this._forgetValue}
+            curve={'curveMonotoneX'}
             data={this.showStockData()}
+            animation={ {
+              damping: 50,
+              stiffness: 300
+            }}
           />
-          {this.props.value ? <Hint value={this.props.value} /> : null}
-        </XYPlot>
+          {value ? <Hint value={value} /> : null}
+        </FlexibleXYPlot>
+        </Paper>
         <Button variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
           1D
         </Button>
