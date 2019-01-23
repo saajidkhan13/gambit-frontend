@@ -1,5 +1,8 @@
 import React, { Component, Fragment } from 'react'
 
+import withAuth from '../hocs/withAuth'
+
+
 import {connect} from 'react-redux'
 
 import TickerTable from './TickerTable'
@@ -94,8 +97,10 @@ const mapStateToProps = ({stocksReducer}) => ({
   stocksReducer
 })
 
-const hoc = withStyles(styles)(StockIndexContainer);
 
+
+
+const hoc = withStyles(styles)(StockIndexContainer);
 
 
 export default connect(mapStateToProps)(hoc)

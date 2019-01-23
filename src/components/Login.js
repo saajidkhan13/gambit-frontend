@@ -11,6 +11,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom'
+
 import withStyles from '@material-ui/core/styles/withStyles';
 
 
@@ -73,7 +75,7 @@ class Login extends Component{
 
 
   render(){
-    console.log('%c LOGIN FORM PROPS: ', 'color: red', this.props)
+    // console.log('%c LOGIN FORM PROPS: ', 'color: red', this.props)
     const { classes } = this.props;
 
     return( this.props.loggedIn ? (
@@ -81,6 +83,8 @@ class Login extends Component{
         <Fragment>
           <main className={classes.main}>
           <CssBaseline />
+          <br/><br/>
+
             <Paper>
             <center>
             <br/><br/>
@@ -124,6 +128,10 @@ class Login extends Component{
            >
              Sign in
            </Button>
+           <br/><br/>
+           <Typography variant="overline" >
+            Not a user? <Link to = "/signup">Sign Up</Link>
+           </Typography>
       </form>
     </div>
     </center>
@@ -149,4 +157,4 @@ Login.propTypes = {
 
 const hocLogin = withStyles(styles)(Login);
 
-export default withRouter(connect(mapStateToProps, { loginUser })(hocLogin))
+export default connect(mapStateToProps, { loginUser })(withRouter(hocLogin))

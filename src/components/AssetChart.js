@@ -74,7 +74,7 @@ class AssetChart extends Component{
     return (
       <Fragment>
         <Paper className={classes.root} >
-        <FlexibleXYPlot xType="ordinal" margin={50} width={700} height={500} >
+        <FlexibleXYPlot xType="ordinal" margin={70} width={700} height={500} >
           <XAxis/>
           <YAxis />
           <LineMarkSeries
@@ -94,31 +94,34 @@ class AssetChart extends Component{
           />
           {value ? <Hint value={value} /> : null}
         </FlexibleXYPlot>
-        </Paper>
-        <Button variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
+        <center>
+        <Button color="secondary" variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
           1D
         </Button>
-        <Button variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
+        <Button color="secondary" variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
           1M
         </Button>
-        <Button variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
+        <Button color="secondary" variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
           3M
         </Button>
-        <Button variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
+        <Button color="secondary" variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
           6M
         </Button>
-        <Button variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
+        <br/>
+        <Button color="secondary" variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
           1Y
         </Button>
-        <Button variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
+        <Button color="secondary" variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
           2Y
         </Button>
-        <Button variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
+        <Button color="secondary" variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
           5Y
         </Button>
-        <Button variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
+        <Button color="secondary" variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
           YTD
         </Button>
+        </center>
+        </Paper>
       </Fragment>
     )
   }
@@ -129,5 +132,6 @@ class AssetChart extends Component{
 AssetChart.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
 
 export default withStyles(styles)(AssetChart);

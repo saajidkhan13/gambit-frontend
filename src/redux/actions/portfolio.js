@@ -9,7 +9,6 @@ export const fetchUserPortfolio = (id) => {
     })
       .then(response => response.json())
       .then((JSONResponse) => {
-        console.log(JSONResponse)
         dispatch(fetchingPortfolio(JSONResponse.portfolios))
       })
   }

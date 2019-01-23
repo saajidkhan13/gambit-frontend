@@ -5,20 +5,18 @@ import { Link, withRouter } from 'react-router-dom'
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
+import Paper from '@material-ui/core/Paper';
+
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { green }  from '@material-ui/core/colors';
 
 
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 
 
@@ -31,7 +29,7 @@ const styles = theme => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
-    height: 180
+    height: 300
   },
   container: {
     display: 'flex',
@@ -52,10 +50,9 @@ const styles = theme => ({
     color: green[500]
   },
   paper: {
-    height: 140,
+    height: 400,
     width: 100,
   },
-  
   svg: {
     width: 100,
     height: 100,
@@ -75,33 +72,32 @@ class GainerCard extends Component {
     const gains = this.props.dashboardNewsReducer.gainersAndLosers.gainers
     const handleTicker=this.props.handleTicker
     return(
-            <div className={classes.root}>
-                <GridList className={classes.gridList} cols={4.5} >
-                { gains ? gains.map((gainer) => {
-                  return <GridListTile className={classes.card}
-                    key={gainer.symbol}
-                    >
-                    <Paper className={classes.paper}>
-                      <Typography className={classes.title} onClick={this.props.handleTicker} color="textSecondary" gutterBottom>
-                        <Link to ="/stock" >{gainer.symbol}</Link>
-                      </Typography>
-                      <Typography className={classes.change} variant="h5" component="h2" >
-                        {gainer.change}
-                      </Typography>
-                      <Typography className={classes.pos} color="textSecondary">
-                        {gainer.price}
-                      </Typography>
-                      <Typography component="p">
-                        {gainer.name}
-                      </Typography>
-
-                      </Paper>
-                  </GridListTile>
-
-                }) : <h1>nothing</h1>
-              }
-              </GridList>
-            </div>
+        <Fragment>
+          <Paper className={classes.root} style={{maxHeight: 400, overflow: 'auto'}}>
+            <Table className={classes.table}>
+            <TableHead>
+            <TableRow>
+              <TableCell >Name</TableCell>
+              <TableCell align="right">Symbol</TableCell>
+              <TableCell align="right">Price</TableCell>
+              <TableCell align="right">Change</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+          {gains ? gains.map(row => (
+            <TableRow key={row.symbol}>
+              <TableCell component="th" scope="row">{row.name}</TableCell>
+              <TableCell align="right">{row.symbol}</TableCell>
+              <TableCell align="right">{row.price}</TableCell>
+              <TableCell align="right">{row.change}</TableCell>
+            </TableRow>
+          ))
+          : null
+        }
+          </TableBody>
+        </Table>
+        </Paper>
+        </Fragment>
     )
   }
 }

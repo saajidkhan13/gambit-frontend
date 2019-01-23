@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+
 
 
 
@@ -14,12 +14,17 @@ export default class AssetStats extends Component {
 
   render(){
     const stats = this.props.stats
+    const numberWithCommas = (x) => {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
 
     return(
       <Fragment>
         <Paper>
           <Card>
             <CardContent>
+
             <Typography variant="overline" gutterBottom>
               Market Cap: {stats.marketcap}
             </Typography>
@@ -41,6 +46,8 @@ export default class AssetStats extends Component {
             <Typography variant="overline" gutterBottom>
               52 Week-Change: {stats.week52change}
             </Typography>
+
+
             </CardContent>
           </Card>
         </Paper>

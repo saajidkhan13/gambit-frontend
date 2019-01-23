@@ -1,19 +1,20 @@
 import React, { Component, Fragment } from 'react';
 
-import NewsContainer from './NewsContainer'
+import DashboardUpper from './DashboardUpper'
 import GainersAndLosers from './GainersAndLosers'
 
-import { Link, withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
 
   render(){
+    const markets = this.props.markets
     return (
       <Fragment>
+              <DashboardUpper markets={markets}/>
               <GainersAndLosers handleTicker={this.props.handleTicker}/>
-              <NewsContainer />
       </Fragment>
     )
   }
 }
+
+export default Dashboard

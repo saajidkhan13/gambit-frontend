@@ -33,14 +33,14 @@ class PortfolioTable extends Component {
 
 
   render(){
-    const data = this.props.portfoliosReducer.portfolios
+    const data = this.props.portfolios
 
     const { classes } = this.props;
 
     console.log(data);
     return(
       <Fragment>
-        <Paper className={classes.root}>
+        <Paper className={classes.root} style={{maxHeight: 400, overflow: 'auto'}}>
           <Table className={classes.table}>
           <TableHead>
           <TableRow>
@@ -54,8 +54,8 @@ class PortfolioTable extends Component {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map(row => (
-            <TableRow key={row.symbol}>
+          {data ? data.map(row => (
+            <TableRow key={row.date_bought}>
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
@@ -66,7 +66,7 @@ class PortfolioTable extends Component {
               <TableCell align="right">{row.sector}</TableCell>
               <TableCell align="right">{row.date_bought}</TableCell>
             </TableRow>
-          ))}
+          )) : null}
         </TableBody>
       </Table>
     </Paper>
@@ -79,10 +79,6 @@ PortfolioTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({portfoliosReducer}) => ({
-  portfoliosReducer
-})
 
-const hoc= withStyles(styles)(PortfolioTable);
 
-export default connect(mapStateToProps)(hoc)
+export default withStyles(styles)(PortfolioTable);

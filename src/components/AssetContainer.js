@@ -1,12 +1,16 @@
 import React, {Component, Fragment} from 'react';
 import AssetInfo from './AssetInfo';
 import AssetChart from './AssetChart';
-import AssetStats from './AssetStats'
+import AssetStats from './AssetStats';
+import AssetTab from './AssetTab'
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import withAuth from '../hocs/withAuth'
+
+
 
 
 const styles = theme => ({
@@ -31,17 +35,20 @@ class AssetContainer extends Component{
     const info = this.props.companyInfo
     const stats = this.props.keyStats
     const price = this.props.price
+    const news = this.props.news
     const { classes } = this.props;
 
     return (
       <Fragment>
-        <Typography variant="h3" gutterBottom>
+        <br/>
+        <Typography variant="overline" gutterBottom>
           {info ? info.companyName : "Loading"}
         </Typography>
-        <Grid container spacing={8}>
-          {chart ? <Grid item xs={6}><AssetChart chart={chart} handleTimeLine={this.props.handleTimeLine} /></Grid> : <h1>no</h1>}
+        <Grid container spacing={12}>
+          {chart ? <Grid item xs={6}><AssetTab chart={chart} news={news} handleTimeLine={this.props.handleTimeLine}/>
+          </Grid> : <h1>no</h1>}
           {info && stats ?
-            <Grid item xs={6}><AssetInfo info={info} price={price} handlePurchase={this.props.handlePurchase}/>
+            <Grid item xs={6}><AssetInfo info={info} price={price} handlePurchase={this.props.handlePurchase} handleAmount={this.props.handleAmount}/>
             <br/>
             <AssetStats stats={stats}/></Grid>
             : <h1>no</h1>}
@@ -57,4 +64,5 @@ AssetContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AssetContainer);
+const hoc = withStyles(styles)(AssetContainer)
+export default hoc;

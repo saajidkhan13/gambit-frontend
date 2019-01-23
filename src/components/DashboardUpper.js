@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 
-import GainerCard from './GainerCard'
-import LoserCard from './LoserCard'
+import DashboardClock from './DashboardClock'
+import MarketsTable from './MarketsTable'
+
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+
 
 
 const styles = theme => ({
@@ -13,7 +15,7 @@ const styles = theme => ({
   }
 });
 
-export default class GainersAndLosers extends Component {
+export default class DashboardUpper extends Component {
 
 
 
@@ -25,18 +27,18 @@ export default class GainersAndLosers extends Component {
           <br/><br/>
           <Grid container className={styles.root} spacing={16} style={{maxHeight: 700, overflow: 'auto'}}>
 
-            <Grid item md={6}>
+            <Grid item md={3}>
                 <Typography variant="overline" >
-                Gainers
+                Time
                 </Typography>
-              <GainerCard handleTicker={this.props.handleTicker}/>
+              <DashboardClock />
             </Grid>
 
-            <Grid item md={6}>
-            <Typography variant="overline" >
-              Losers
-            </Typography>
-            <LoserCard handleTicker={this.props.handleTicker}/>
+            <Grid item md={9}>
+              <Typography variant="overline" >
+                Markets
+              </Typography>
+              <MarketsTable markets={this.props.markets}/>
             </Grid>
 
           </Grid>
