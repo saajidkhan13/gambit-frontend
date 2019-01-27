@@ -29,7 +29,7 @@ TabContainer.propTypes = {
 const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: 700,
+    width: 1400  
   },
 });
 
@@ -68,7 +68,7 @@ class AssetTab extends React.Component {
           index={this.state.value}
           onChangeIndex={this.handleChangeIndex}
         >
-          <TabContainer dir={theme.direction}><AssetChart chart={this.props.chart} handleTimeLine={this.props.handleTimeLine} /></TabContainer>
+          <TabContainer dir={theme.direction}><AssetChart chart={this.props.chart} handleTimeLine={this.props.handleTimeLine} timeline={this.props.timeline} /></TabContainer>
           <TabContainer dir={theme.direction}><AssetNews news={this.props.news}/></TabContainer>
         </SwipeableViews>
       </div>

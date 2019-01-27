@@ -6,6 +6,8 @@ import { Link, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import Grow from '@material-ui/core/Grow';
+
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -64,6 +66,10 @@ class MarketsTable extends Component {
 
     return(
         <Fragment>
+        <Grow
+           in={true}
+           timeout={1000}
+         >
           <Paper className={classes.root} style={{maxHeight: 400, overflow: 'auto'}}>
             <Table className={classes.table}>
             <TableHead>
@@ -92,6 +98,7 @@ class MarketsTable extends Component {
           </TableBody>
         </Table>
         </Paper>
+        </Grow>
         </Fragment>
     )
   }

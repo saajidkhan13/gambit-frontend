@@ -8,6 +8,8 @@ import {connect} from 'react-redux'
 import TickerTable from './TickerTable'
 import Loader from '../hocs/Loader'
 
+import Grid from '@material-ui/core/Grid';
+
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField';
@@ -58,17 +60,20 @@ class StockIndexContainer extends Component {
     const { classes } = this.props;
     return (
       <Fragment>
-      <Typography component="h2" variant="h1" gutterBottom>
+      <br />
+      <Typography component="h2" variant="overline" gutterBottom>
         Search Stocks
       </Typography>
 
+
       {stocks ?
-        <div>
+          <Grid container className={styles.root} spacing={16} style={{maxHeight: 700, overflow: 'auto'}}>
+          <Grid item md={3}>
           <TextField
             id="filled-full-width"
             onChange={this.handleChange}
             style={{ margin: 8 }}
-            placeholder="Search Stocks"
+            placeholder="Amazon, Disney, Netflix etc."
             fullWidth
             margin="normal"
             variant="filled"
@@ -76,14 +81,15 @@ class StockIndexContainer extends Component {
               shrink: true,
             }}
           />
-        <div>
+          </Grid>
+        <Grid item md={9}>
             {this.filteredStocks().map(ticker => {
               return <TickerTable handleTicker={this.props.handleTicker} key={ticker.symbol} ticker={ticker} />
             })}
-          </div>
-       </div>  :
+        </Grid>
+        </Grid>  :
        <Loader/>
-      }
+        }
       </Fragment>
     )
   }

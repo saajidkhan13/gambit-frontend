@@ -9,6 +9,10 @@ import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
+import Grid from '@material-ui/core/Grid';
+import Grow from '@material-ui/core/Grow';
+
+
 import { withStyles } from '@material-ui/core/styles';
 
 
@@ -74,9 +78,16 @@ class AssetInfo extends Component{
 
     return (
       <Fragment>
+      <Grow
+         in={true}
+         timeout={2500}
+       >
       <Paper>
         <Card>
           <CardContent>
+            <Grid container  spacing={12} style={{maxHeight: 700, overflow: 'auto'}}>
+
+            <Grid item md={3}>
             <Typography component="h1" variant="overline" gutterBottom>
               Price: {price}
             </Typography>
@@ -92,11 +103,11 @@ class AssetInfo extends Component{
             <Typography variant="overline" gutterBottom>
               Industry: {info.industry}
             </Typography>
-            <Typography variant="overline" gutterBottom>
-              {info.description}
-            </Typography>
+            </Grid>
+
+            <Grid item md={8}>
             <div>
-            <Button variant="contained" onClick={this.handleOpen}>Buy: ${price}</Button>
+            <Button color="primary" variant="contained" onClick={this.handleOpen}>Buy: ${price}</Button>
             <Modal open={this.state.open} onClose={this.handleClose}>
               <div style={getModalStyle()} className={classes.paper}>
               <Paper>
@@ -106,7 +117,7 @@ class AssetInfo extends Component{
                     <Typography variant="overline">Please indicate how many shares</Typography>
                     <Input onChange={this.props.handleAmount} placeholder="Amount of Shares" className={classes.input} />
                     <br/>
-                    <Button variant="contained" onClick={this.handleRedirectClick}>Buy</Button>
+                    <Button color="secondary" variant="contained" onClick={this.handleRedirectClick}>Buy</Button>
                     </center>
                   </CardContent>
                 </Card>
@@ -114,9 +125,19 @@ class AssetInfo extends Component{
               </div>
             </Modal>
             </div>
+            </Grid>
+            </Grid>
+
+            <Typography variant="overline" gutterBottom>
+              {info.description}
+            </Typography>
           </CardContent>
         </Card>
+
+
+
       </Paper>
+      </Grow>
       </Fragment>
     )
   }

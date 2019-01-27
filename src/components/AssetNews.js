@@ -5,6 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Paper from '@material-ui/core/Paper';
+
 import { withStyles } from '@material-ui/core/styles';
 
 
@@ -35,7 +36,7 @@ class AssetNews extends Component {
     const news = this.props.news
     return(
       <Fragment>
-        <Paper>
+        <Paper style={{maxHeight: 400, overflow: 'auto'}}>
         {news.map(obj => {
           return <Card>
           <CardContent>

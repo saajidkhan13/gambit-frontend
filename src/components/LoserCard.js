@@ -19,6 +19,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import Grow from '@material-ui/core/Grow';
+
+
 
 const styles = theme => ({
   root: {
@@ -78,6 +81,12 @@ class LoserCard extends Component{
 
     return(
         <Fragment>
+
+        <Grow
+           in={true}
+           timeout={3000}
+         >
+
           <Paper className={classes.root} style={{maxHeight: 400, overflow: 'auto'}}>
             <Table className={classes.table}>
             <TableHead>
@@ -92,7 +101,7 @@ class LoserCard extends Component{
           {losers ? losers.map(row => (
             <TableRow key={row.symbol}>
               <TableCell component="th" scope="row">{row.name}</TableCell>
-              <TableCell align="right">{row.symbol}</TableCell>
+              <TableCell align="right" onClick={this.props.handleTicker}><Link to ="/stock" >{row.symbol}</Link></TableCell>
               <TableCell align="right">{row.price}</TableCell>
               <TableCell align="right">{row.change}</TableCell>
             </TableRow>
@@ -102,6 +111,9 @@ class LoserCard extends Component{
           </TableBody>
         </Table>
         </Paper>
+
+        </Grow>
+
         </Fragment>
     )
   }

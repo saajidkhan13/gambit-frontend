@@ -11,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+
 import { Link } from 'react-router-dom'
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -79,7 +80,7 @@ class Login extends Component{
     const { classes } = this.props;
 
     return( this.props.loggedIn ? (
-      <Redirect to="/stocks" /> ) : (
+      <Redirect to="/dashboard" /> ) : (
         <Fragment>
           <main className={classes.main}>
           <CssBaseline />

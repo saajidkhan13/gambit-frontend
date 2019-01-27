@@ -6,6 +6,8 @@ import { Link, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import Grow from '@material-ui/core/Grow';
+
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -73,6 +75,9 @@ class GainerCard extends Component {
     const handleTicker=this.props.handleTicker
     return(
         <Fragment>
+
+        <Grow in={true} timeout={2000}>
+
           <Paper className={classes.root} style={{maxHeight: 400, overflow: 'auto'}}>
             <Table className={classes.table}>
             <TableHead>
@@ -87,7 +92,7 @@ class GainerCard extends Component {
           {gains ? gains.map(row => (
             <TableRow key={row.symbol}>
               <TableCell component="th" scope="row">{row.name}</TableCell>
-              <TableCell align="right">{row.symbol}</TableCell>
+              <TableCell align="right" onClick={this.props.handleTicker} ><Link to ="/stock" >{row.symbol}</Link></TableCell>
               <TableCell align="right">{row.price}</TableCell>
               <TableCell align="right">{row.change}</TableCell>
             </TableRow>
@@ -97,6 +102,7 @@ class GainerCard extends Component {
           </TableBody>
         </Table>
         </Paper>
+        </Grow>
         </Fragment>
     )
   }

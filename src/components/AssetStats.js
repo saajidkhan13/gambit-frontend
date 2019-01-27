@@ -4,6 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Paper from '@material-ui/core/Paper';
+import Grow from '@material-ui/core/Grow';
+
 
 
 
@@ -21,6 +23,10 @@ export default class AssetStats extends Component {
 
     return(
       <Fragment>
+      <Grow
+         in={true}
+         timeout={3500}
+       >
         <Paper>
           <Card>
             <CardContent>
@@ -51,6 +57,7 @@ export default class AssetStats extends Component {
             </CardContent>
           </Card>
         </Paper>
+      </Grow>
       </Fragment>
     )
   }

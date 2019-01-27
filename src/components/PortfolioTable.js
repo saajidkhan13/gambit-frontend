@@ -10,6 +10,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Grow from '@material-ui/core/Grow';
+
 
 
 const styles = theme => ({
@@ -19,7 +21,7 @@ const styles = theme => ({
     overflowX: 'auto',
   },
   table: {
-    minWidth: 700,
+    maxWidth: 300,
   },
 });
 
@@ -40,6 +42,11 @@ class PortfolioTable extends Component {
     console.log(data);
     return(
       <Fragment>
+      <Grow
+         in={true}
+         timeout={1500}
+       >
+
         <Paper className={classes.root} style={{maxHeight: 400, overflow: 'auto'}}>
           <Table className={classes.table}>
           <TableHead>
@@ -70,6 +77,7 @@ class PortfolioTable extends Component {
         </TableBody>
       </Table>
     </Paper>
+    </Grow>
       </Fragment>
     )
   }

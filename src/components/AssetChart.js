@@ -15,7 +15,13 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grow from '@material-ui/core/Grow';
+
+
 
 
 const styles = theme => ({
@@ -64,28 +70,65 @@ class AssetChart extends Component{
     }
   }
 
+  displayTimeline = (str) => {
+    if(str == "6m"){
+      return "Six Months"
+    } else if(str == "3m"){
+      return "Three Months"
+    } else if(str == "1m"){
+      return "One Month"
+    } else if(str == "1d"){
+      return "One Day"
+    } else if(str == "1y"){
+      return "One Year"
+    } else if(str == "2y"){
+      return "Two Years"
+    } else if(str == "5y"){
+      return "Five Years"
+    } else if(str == "ytd"){
+      return "YTD"
+    } else {
+      return "One Month"
+    }
+  }
+
 
 
 
   render(){
     const { classes } = this.props;
     const {value} = this.state;
-
+    const timeline = this.props.timeline
     return (
       <Fragment>
-        <Paper className={classes.root} >
-        <FlexibleXYPlot xType="ordinal" margin={70} width={700} height={500} >
-          <XAxis/>
+
+        <Grow
+           in={true}
+           timeout={1500}
+         >
+        <Paper>
+        <center>
+        <Typography variant="overline">
+        Timeline: {this.displayTimeline(timeline)}
+        </Typography>
+        </center>
+
+
+        <FlexibleXYPlot xType="ordinal" margin={70} width={1400} height={300} >
+          <XAxis hideTicks/>
           <YAxis />
+
+          <HorizontalGridLines />
           <LineMarkSeries
             className="linemark-series-example"
             style={{
               strokeWidth: '1px'
             }}
-            size= "1"
+            size= "3"
             onValueMouseOver={this._rememberValue}
             onValueMouseOut={this._forgetValue}
-            curve={'curveMonotoneX'}
+            lineStyle={{stroke: '#0097a7'}}
+            markStyle={{stroke: 'black'}}
             data={this.showStockData()}
             animation={ {
               damping: 50,
@@ -94,6 +137,10 @@ class AssetChart extends Component{
           />
           {value ? <Hint value={value} /> : null}
         </FlexibleXYPlot>
+
+        </Paper>
+        </Grow>
+
         <center>
         <Button color="secondary" variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
           1D
@@ -107,7 +154,6 @@ class AssetChart extends Component{
         <Button color="secondary" variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
           6M
         </Button>
-        <br/>
         <Button color="secondary" variant="contained" className={classes.button} onClick={this.props.handleTimeLine}>
           1Y
         </Button>
@@ -121,7 +167,7 @@ class AssetChart extends Component{
           YTD
         </Button>
         </center>
-        </Paper>
+
       </Fragment>
     )
   }

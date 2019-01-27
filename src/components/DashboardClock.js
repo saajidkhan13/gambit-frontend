@@ -5,6 +5,7 @@ import {XYPlot, ArcSeries} from 'react-vis';
 import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Grow from '@material-ui/core/Grow';
 
 
 
@@ -34,6 +35,11 @@ export default class DashboardClock extends React.Component {
     const minutes = (time / 60) % 60;
     const hours = (time / (60 * 24)) % 24;
     return (
+      <Grow
+         in={true}
+         timeout={1000}
+       >
+       <Paper>
       <XYPlot
         xDomain={[-3, 3]}
         yDomain={[-3, 3]}
@@ -61,7 +67,8 @@ export default class DashboardClock extends React.Component {
           colorRange={['#19CDD7', '#DDB27C', '#88572C', '#FF991F', '#F15C17', '#223F9A', '#DA70BF', '#125C77', '#4DC19C', '#776E57', '#12939A', '#17B8BE', '#F6D18A', '#B7885E', '#FFCB99', '#F89570', '#829AE3', '#E79FD5', '#1E96BE', '#89DAC1', '#B3AD9E']}
         />
       </XYPlot>
-      
+      </Paper>
+      </Grow>
     );
   }
 }

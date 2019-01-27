@@ -36,23 +36,27 @@ class AssetContainer extends Component{
     const stats = this.props.keyStats
     const price = this.props.price
     const news = this.props.news
+    const timeline = this.props.timeline
     const { classes } = this.props;
 
     return (
       <Fragment>
-        <br/>
-        <Typography variant="overline" gutterBottom>
-          {info ? info.companyName : "Loading"}
-        </Typography>
-        <Grid container spacing={12}>
-          {chart ? <Grid item xs={6}><AssetTab chart={chart} news={news} handleTimeLine={this.props.handleTimeLine}/>
-          </Grid> : <h1>no</h1>}
+      <center>
+      <br />
+        {chart ? <AssetTab chart={chart} news={news} timeline={timeline}  handleTimeLine={this.props.handleTimeLine}/>
+         : <h1>no</h1>}
+      </center>
+         <Typography variant="overline" gutterBottom>
+           {info ? info.companyName : "Loading"}
+         </Typography>
           {info && stats ?
-            <Grid item xs={6}><AssetInfo info={info} price={price} handlePurchase={this.props.handlePurchase} handleAmount={this.props.handleAmount}/>
-            <br/>
-            <AssetStats stats={stats}/></Grid>
+            <Grid container spacing={8}>
+            <Grid item xs={6}><AssetInfo info={info} price={price} handlePurchase={this.props.handlePurchase} handleAmount={this.props.handleAmount}/></Grid>
+
+            <Grid item xs={6}><AssetStats stats={stats}/></Grid>
+            </Grid>
             : <h1>no</h1>}
-        </Grid>
+
       </Fragment>
     )
 

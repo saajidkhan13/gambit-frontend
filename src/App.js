@@ -206,7 +206,6 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.portfolios);
       return (
         <Fragment>
           <MuiThemeProvider theme={theme} >
